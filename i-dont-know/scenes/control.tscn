@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://tomvv4ne1xnp"]
+
+[ext_resource type="Script" uid="uid://kxmv663beffy" path="res://scripts/control.gd" id="1_5p55f"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cr3o2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5p55f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r67kn"]
+
+[node name="Control" type="Area3D" unique_id=1820481607]
+script = ExtResource("1_5p55f")
+metadata/control = true
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1102286879]
+mesh = SubResource("CapsuleMesh_cr3o2")
+material = SubResource("StandardMaterial3D_5p55f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=570492053]
+shape = SubResource("CapsuleShape3D_r67kn")

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dqdbtt6tljxf6"]
+
+[ext_resource type="Script" uid="uid://b8q0g8smgfmgi" path="res://scripts/finish.gd" id="1_5nbog"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l1f6y"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nhnym"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cemll"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="finish" type="Area3D" unique_id=246749417]
+script = ExtResource("1_5nbog")
+metadata/Finish = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1060312523]
+shape = SubResource("CapsuleShape3D_l1f6y")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=148475347]
+mesh = SubResource("CapsuleMesh_nhnym")
+material = SubResource("StandardMaterial3D_cemll")

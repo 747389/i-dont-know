@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dolr0pk3yb8ai"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ewcy1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jaeev"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u80x2"]
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="Start" type="Area3D" unique_id=2117980702]
+metadata/Start = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1830431068]
+shape = SubResource("CapsuleShape3D_ewcy1")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=2124033192]
+mesh = SubResource("CapsuleMesh_jaeev")
+material = SubResource("StandardMaterial3D_u80x2")
