@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://cdeof8fv26b1v"]
 
+[ext_resource type="PackedScene" uid="uid://dt2ktrmbclxsp" path="res://scenes/character_body_3d.tscn" id="1_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dolr0pk3yb8ai" path="res://scenes/start.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://tomvv4ne1xnp" path="res://scenes/control.tscn" id="3_tefeu"]
+[ext_resource type="PackedScene" uid="uid://dqdbtt6tljxf6" path="res://scenes/finish.tscn" id="4_o6xl0"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgp6g"]
 
 [sub_resource type="Sky" id="Sky_o5qli"]
@@ -9,7 +14,36 @@ sky_material = SubResource("ProceduralSkyMaterial_sgp6g")
 background_mode = 2
 sky = SubResource("Sky_o5qli")
 
+[sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5qli"]
+albedo_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node3D" unique_id=1404701017]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1703538157]
 environment = SubResource("Environment_0wfyh")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1738738576]
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_sgp6g")
+material = SubResource("StandardMaterial3D_o5qli")
+
+[node name="CharacterBody3D" parent="." unique_id=1937935786 instance=ExtResource("1_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="Start" parent="." unique_id=2117980702 instance=ExtResource("2_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10)
+
+[node name="Control" parent="." unique_id=1820481607 instance=ExtResource("3_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 10)
+control_number = 1
+
+[node name="Control2" parent="." unique_id=354703185 instance=ExtResource("3_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 10)
+control_number = 2
+
+[node name="finish" parent="." unique_id=246749417 instance=ExtResource("4_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 10)
+control_number = 3
