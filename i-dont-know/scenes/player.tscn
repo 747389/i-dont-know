@@ -8,7 +8,7 @@
 radius = 1.0
 height = 3.0
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1937935786 node_paths=PackedStringArray("head")]
+[node name="player" type="CharacterBody3D" unique_id=1937935786 node_paths=PackedStringArray("head")]
 script = ExtResource("1_cvunv")
 head = NodePath("Node3D")
 
