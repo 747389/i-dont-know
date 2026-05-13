@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+var start_time: int = 0
+var course_started: bool = false
+var next_control: int = 1
+
 @export var MOVE_SPEED: float = 50.0
 @export var JUMP_SPEED: float = 2.0
 @export var first_person: bool = false : 
@@ -79,3 +83,34 @@ func _input(p_event: InputEvent) -> void:
 		# Else if up/down released
 		elif p_event.keycode in [ KEY_Q, KEY_E, KEY_SPACE ]:
 			velocity.y = 0
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	if area.has_meta("Start"):
+		start_time = Time.get_ticks_msec()
+		course_started = true
+		next_control = 1
+		print("GO")
+		area.queue_free()
+
+	if area.has_meta("control") and course_started:
+		if area.control_number == next_control:
+			next_control += 1
+			print("Control ", area.control_number, " collected!")
+			area.queue_free()
+		else:
+			print("Wrong control! Need control ", next_control)
+
+	if area.has_meta("Finish"):
+		if area.control_number == next_control:
+			course_started = false
+
+			var elapsed: float = float(Time.get_ticks_msec() - start_time) / 1000.0
+			var minutes: int = int(elapsed / 60.0)
+			var seconds: int = int(elapsed) % 60
+			var milliseconds: int = int(elapsed * 1000) % 1000
+			print("Time taken: %02d:%02d:%03d" % [minutes, seconds, milliseconds])
+			start_time = 0
+			area.queue_free()
+		else:
+			print("Wrong control Need control ", next_control)
