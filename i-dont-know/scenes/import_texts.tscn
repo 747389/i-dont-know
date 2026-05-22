@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c10ih3f3w8d6o"]
+
+[ext_resource type="Script" uid="uid://h62yml4sh36h" path="res://scenes/import_texts.gd" id="1_yknrs"]
+[ext_resource type="Texture2D" uid="uid://bii5t87wfemyw" path="res://Height-Map.exr" id="2_fpe2t"]
+[ext_resource type="PackedScene" uid="uid://blaieaqp413k7" path="res://addons/terrain_3d/tools/importer.tscn" id="3_8su47"]
+
+[node name="import texts" type="Node3D" unique_id=1830474212]
+script = ExtResource("1_yknrs")
+heightmap_texture = ExtResource("2_fpe2t")
+
+[node name="Importer" parent="." unique_id=1965767072 instance=ExtResource("3_8su47")]
+import_scale = 500.0

@@ -120,3 +120,6 @@ control_number = 3
 [node name="finish" parent="." unique_id=246749417 instance=ExtResource("11_877j2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 835.052, 101.48295, -71.61826)
 control_number = 4
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=944392]
+transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 542.3275, 781.9812, 311.15945)
