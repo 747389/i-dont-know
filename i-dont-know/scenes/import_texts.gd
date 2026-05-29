@@ -23,4 +23,4 @@ func print_heights() -> void:
 			height_values[Vector2i(x, y)] = val
 	
 
-	print(height_values.size())
+		print(height_values.size())

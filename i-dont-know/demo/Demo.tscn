@@ -39,7 +39,7 @@ _shader_parameters = {
 "auto_base_texture": 0,
 "auto_height_reduction": 0.05,
 "auto_overlay_texture": 1,
-"auto_slope": 0.45,
+"auto_slope": 0.450000021375,
 "bias_distance": 512.0,
 "blend_sharpness": 0.5,
 "depth_blur": 0.0,
@@ -50,11 +50,11 @@ _shader_parameters = {
 "enable_macro_variation": true,
 "enable_projection": true,
 &"flat_terrain_normals": false,
-"macro_variation1": Color(0.855, 0.8625, 0.9, 1),
-"macro_variation2": Color(0.9, 0.885, 0.81, 1),
-"macro_variation_slope": 0.333,
+"macro_variation1": Color(0.78431374, 0.6862745, 0.42352942, 1),
+"macro_variation2": Color(0.73333335, 0.8862745, 0.41568628, 1),
+"macro_variation_slope": 0.330000015675,
 "mipmap_bias": 1.0,
-"noise1_angle": 0.1,
+"noise1_angle": 0.0,
 "noise1_offset": Vector2(0.5, 0.5),
 "noise1_scale": 0.04,
 "noise2_scale": 0.076,
@@ -62,17 +62,18 @@ _shader_parameters = {
 "projection_threshold": 0.87,
 "tri_scale_reduction": 0.3,
 "world_noise_fragment_normals": false,
-"world_noise_height": 34.0,
+"world_noise_height": 40.000000596048,
 "world_noise_lod_distance": 7500.0,
 "world_noise_max_octaves": 4,
 "world_noise_min_octaves": 2,
 "world_noise_offset": Vector3(2.17, -1.225, 1.9),
 "world_noise_region_blend": 0.33,
-"world_noise_scale": 9.85
+"world_noise_scale": 14.999999670308
 }
 world_background = 2
 auto_shader = true
 dual_scaling = true
+show_region_grid = true
 
 [node name="Demo" type="Node" unique_id=638760420]
 script = ExtResource("1_k7qca")
@@ -91,7 +92,9 @@ collision_mask = 3
 data_directory = "res://demo/data"
 material = SubResource("Terrain3DMaterial_jrc01")
 assets = ExtResource("8_g2of2")
+show_grid = true
 collision_mask = 3
+show_region_grid = true
 top_level = true
 metadata/_edit_lock_ = true
 
@@ -127,3 +130,6 @@ control_number = 4
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=944392]
 transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 542.3275, 781.9812, 311.15945)
+
+[node name="Node3D" type="Node3D" parent="." unique_id=324741494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.1086, 368.20755, 628.0044)
