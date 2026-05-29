@@ -97,6 +97,10 @@ metadata/_edit_lock_ = true
 
 [node name="Terrain3DParticles" parent="Terrain3D" unique_id=1849949927 node_paths=PackedStringArray("terrain") instance=ExtResource("8_fwrtk")]
 terrain = NodePath("..")
+instance_spacing = 0.5
+rows = 48
+amount = 2304
+particle_count = 57600
 
 [node name="Player" parent="." unique_id=261780715 instance=ExtResource("3_ht63y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 804.1913, 113.40619, -94.806946)

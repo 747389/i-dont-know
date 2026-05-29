@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://c10ih3f3w8d6o"]
 
 [ext_resource type="Script" uid="uid://h62yml4sh36h" path="res://scenes/import_texts.gd" id="1_yknrs"]
-[ext_resource type="Texture2D" uid="uid://bii5t87wfemyw" path="res://Height-Map.exr" id="2_fpe2t"]
+[ext_resource type="Texture2D" uid="uid://cw3ugxwvnsw0u" path="res://Height Map EXR.exr" id="2_yknrs"]
 [ext_resource type="PackedScene" uid="uid://blaieaqp413k7" path="res://addons/terrain_3d/tools/importer.tscn" id="3_8su47"]
 
 [node name="import texts" type="Node3D" unique_id=1830474212]
 script = ExtResource("1_yknrs")
-heightmap_texture = ExtResource("2_fpe2t")
+heightmap_texture = ExtResource("2_yknrs")
 
 [node name="Importer" parent="." unique_id=1965767072 instance=ExtResource("3_8su47")]
-import_scale = 500.0
+height_file_name = "C:/Users/jackm/Documents/GitHub/i dont know/i-dont-know/Height Map EXR.exr"
+import_scale = 10000.0
