@@ -60,20 +60,11 @@ _shader_parameters = {
 "noise2_scale": 0.076,
 "noise_texture": SubResource("NoiseTexture2D_bov7h"),
 "projection_threshold": 0.87,
-"tri_scale_reduction": 0.3,
-"world_noise_fragment_normals": false,
-"world_noise_height": 40.000000596048,
-"world_noise_lod_distance": 7500.0,
-"world_noise_max_octaves": 4,
-"world_noise_min_octaves": 2,
-"world_noise_offset": Vector3(2.17, -1.225, 1.9),
-"world_noise_region_blend": 0.33,
-"world_noise_scale": 14.999999670308
+"tri_scale_reduction": 0.3
 }
-world_background = 2
+world_background = 0
 auto_shader = true
 dual_scaling = true
-show_region_grid = true
 
 [node name="Demo" type="Node" unique_id=638760420]
 script = ExtResource("1_k7qca")
@@ -92,9 +83,7 @@ collision_mask = 3
 data_directory = "res://demo/data"
 material = SubResource("Terrain3DMaterial_jrc01")
 assets = ExtResource("8_g2of2")
-show_grid = true
 collision_mask = 3
-show_region_grid = true
 top_level = true
 metadata/_edit_lock_ = true
 
@@ -127,9 +116,3 @@ control_number = 3
 [node name="finish" parent="." unique_id=246749417 instance=ExtResource("11_877j2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 835.052, 101.48295, -71.61826)
 control_number = 4
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=944392]
-transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 542.3275, 781.9812, 311.15945)
-
-[node name="Node3D" type="Node3D" parent="." unique_id=324741494]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.1086, 368.20755, 628.0044)
