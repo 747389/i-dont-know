@@ -59,17 +59,9 @@ _shader_parameters = {
 "noise2_scale": 0.076,
 "noise_texture": SubResource("NoiseTexture2D_bov7h"),
 "projection_threshold": 0.87,
-"tri_scale_reduction": 0.3,
-&"world_noise_fragment_normals": false,
-&"world_noise_height": 37.0000005513444,
-&"world_noise_lod_distance": 6120.0,
-&"world_noise_max_octaves": 5,
-&"world_noise_min_octaves": 2,
-&"world_noise_offset": Vector3(0, 0, 0),
-&"world_noise_region_blend": 0.14999999850986,
-&"world_noise_scale": 4.72999989986304
+"tri_scale_reduction": 0.3
 }
-world_background = 2
+world_background = 0
 auto_shader = true
 dual_scaling = true
 
@@ -97,9 +89,11 @@ metadata/_edit_lock_ = true
 [node name="Terrain3DParticles" parent="Terrain3D" unique_id=1849949927 node_paths=PackedStringArray("terrain") instance=ExtResource("8_fwrtk")]
 terrain = NodePath("..")
 instance_spacing = 0.5
-rows = 48
-amount = 2304
-particle_count = 57600
+cell_width = 15.0
+rows = 30
+amount = 900
+min_draw_distance = 37.5
+particle_count = 22500
 
 [node name="Player" parent="." unique_id=261780715 instance=ExtResource("3_ht63y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 804.1913, 113.40619, -94.806946)
