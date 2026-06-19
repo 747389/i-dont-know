@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dolr0pk3yb8ai" path="res://scenes/start.tscn" id="9_egbwy"]
 [ext_resource type="PackedScene" uid="uid://tomvv4ne1xnp" path="res://scenes/control.tscn" id="10_jkl3n"]
 [ext_resource type="PackedScene" uid="uid://dqdbtt6tljxf6" path="res://scenes/finish.tscn" id="11_877j2"]
+[ext_resource type="PackedScene" uid="uid://ch4c6wqcd3l1d" path="res://asstes/controal.glb" id="11_jkl3n"]
 
 [sub_resource type="Gradient" id="Gradient_vr1m7"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -144,3 +145,6 @@ shape = SubResource("BoxShape3D_jkl3n")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=406135675]
 transform = Transform3D(1, 0, 0, 0, 500, 0, 0, 0, 2000, 1020, 0, 500)
 shape = SubResource("BoxShape3D_jkl3n")
+
+[node name="controal" parent="." unique_id=896903258 instance=ExtResource("11_jkl3n")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 501.7287, 19.766426, 203.2934)
