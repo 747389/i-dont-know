@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dajlr3n5wjwmb" path="res://demo/src/Player.gd" id="1_nm1yx"]
 [ext_resource type="Script" uid="uid://b62ppvc03a6b1" path="res://demo/src/CameraManager.gd" id="2_loos7"]
+[ext_resource type="Texture2D" uid="uid://h68cek51vakm" path="res://icon.png" id="3_sgnwv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -11,6 +12,13 @@ height = 1.5
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lsqiy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ops02"]
+albedo_texture = ExtResource("3_sgnwv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7x12g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_papvj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mox7b"]
 
@@ -45,6 +53,12 @@ shape = SubResource("SeparationRayShape3D_twc2s")
 [node name="Body" type="MeshInstance3D" parent="." unique_id=36220883]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_lsqiy")
+
+[node name="map" type="MeshInstance3D" parent="." unique_id=1530588405]
+transform = Transform3D(0.1, 0, 0, 0, 0.06790442, -0.073409736, 0, 0.073409736, 0.06790442, 0.8041234, 2.337815, -0.96169794)
+material_override = SubResource("StandardMaterial3D_ops02")
+mesh = SubResource("PlaneMesh_7x12g")
+surface_material_override/0 = SubResource("StandardMaterial3D_papvj")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1058193224]
 
