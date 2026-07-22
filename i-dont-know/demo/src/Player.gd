@@ -4,6 +4,7 @@ var start_time: int = 0
 var course_started: bool = false
 var next_control: int = 1
 
+@export var lebel: Node
 @export var MOVE_SPEED: float = 50.0
 @export var JUMP_SPEED: float = 2.0
 @export var first_person: bool = false : 
@@ -114,3 +115,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			area.queue_free()
 		else:
 			print("Wrong control Need control ", next_control)
+
+
+func _on_timer_timeout() -> void:
+	pass 
