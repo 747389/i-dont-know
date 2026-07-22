@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://tomvv4ne1xnp"]
 
 [ext_resource type="Script" uid="uid://kxmv663beffy" path="res://scripts/control.gd" id="1_5p55f"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cr3o2"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5p55f"]
+[ext_resource type="PackedScene" uid="uid://ch4c6wqcd3l1d" path="res://asstes/controal.glb" id="2_r67kn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r67kn"]
 
@@ -12,9 +9,8 @@
 script = ExtResource("1_5p55f")
 metadata/control = true
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1102286879]
-mesh = SubResource("CapsuleMesh_cr3o2")
-material = SubResource("StandardMaterial3D_5p55f")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=570492053]
 shape = SubResource("CapsuleShape3D_r67kn")
+
+[node name="controal" parent="." unique_id=896903258 instance=ExtResource("2_r67kn")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, -1.0522265, 0)
