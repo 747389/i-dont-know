@@ -4,7 +4,9 @@ var start_time: int = 0
 var course_started: bool = false
 var next_control: int = 1
 
-@export var lebel: Node
+@export var label: Node
+@export var current_controal: Node
+@export var animation: Node
 @export var MOVE_SPEED: float = 50.0
 @export var JUMP_SPEED: float = 2.0
 @export var first_person: bool = false : 
@@ -30,6 +32,9 @@ var next_control: int = 1
 		$CollisionShapeBody.disabled = ! collision_enabled
 		$CollisionShapeRay.disabled = ! collision_enabled
 
+
+func _ready() -> void:
+	current_controal.text = ""
 
 func _physics_process(p_delta) -> void:
 	var direction: Vector3 = get_camera_relative_input()
@@ -87,20 +92,23 @@ func _input(p_event: InputEvent) -> void:
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	if area.has_meta("Start"):
+	if area.has_meta("Start") and not course_started:
 		start_time = Time.get_ticks_msec()
 		course_started = true
 		next_control = 1
-		print("GO")
-		area.queue_free()
+		label.text = "Go"
+		current_controal.text = "current controal: " + str(next_control)
+		animation.play("fade in out")
 
 	if area.has_meta("control") and course_started:
 		if area.control_number == next_control:
 			next_control += 1
-			print("Control ", area.control_number, " collected!")
-			area.queue_free()
+			label.text = "Control " + str(area.control_number) + " collected!"
+			current_controal.text = "current controal: " + str(next_control)
+			animation.play("fade in out")
 		else:
-			print("Wrong control! Need control ", next_control)
+			label.text = "Wrong control! Need control " + str(next_control)
+			animation.play("fade in out")
 
 	if area.has_meta("Finish"):
 		if area.control_number == next_control:
@@ -110,12 +118,8 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			var minutes: int = int(elapsed / 60.0)
 			var seconds: int = int(elapsed) % 60
 			var milliseconds: int = int(elapsed * 1000) % 1000
-			print("Time taken: %02d:%02d:%03d" % [minutes, seconds, milliseconds])
+			label.text = "Time taken: %02d:%02d:%03d" % [minutes, seconds, milliseconds]
 			start_time = 0
-			area.queue_free()
 		else:
-			print("Wrong control Need control ", next_control)
-
-
-func _on_timer_timeout() -> void:
-	pass 
+			label.text = "Wrong control! Need control " + str(next_control)
+			animation.play("fade in out")
