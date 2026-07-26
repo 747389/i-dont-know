@@ -4,11 +4,14 @@ var start_time: int = 0
 var course_started: bool = false
 var next_control: int = 1
 
+
 @export var label: Node
-@export var current_controal: Node
+@export var current_control: Node
+@export var time_label: Node
 @export var animation: Node
 @export var MOVE_SPEED: float = 50.0
 @export var JUMP_SPEED: float = 2.0
+# not my code
 @export var first_person: bool = false : 
 	set(p_value):
 		first_person = p_value
@@ -34,9 +37,20 @@ var next_control: int = 1
 
 
 func _ready() -> void:
-	current_controal.text = ""
+	# reset the next control text
+	current_control.text = ""
+
 
 func _physics_process(p_delta) -> void:
+	# tell the player what there crreunt time is
+	if course_started:
+		var elapsed: float = float(Time.get_ticks_msec() - start_time) / 1000.0
+		var minutes: int = int(elapsed / 60.0)
+		var seconds: int = int(elapsed) % 60
+		var milliseconds: int = int(elapsed * 1000) % 1000
+		time_label.text = "Time : %02d:%02d:%03d" % [minutes, seconds, milliseconds]
+		
+	# not my code
 	var direction: Vector3 = get_camera_relative_input()
 	var h_veloc: Vector2 = Vector2(direction.x, direction.z).normalized() * MOVE_SPEED
 	if Input.is_key_pressed(KEY_SHIFT):
@@ -48,6 +62,7 @@ func _physics_process(p_delta) -> void:
 	move_and_slide()
 
 
+# not my code 
 # Returns the input vector relative to the camera. Forward is always the direction the camera is facing
 func get_camera_relative_input() -> Vector3:
 	var input_dir: Vector3 = Vector3.ZERO
@@ -68,8 +83,10 @@ func get_camera_relative_input() -> Vector3:
 	if Input.is_key_pressed(KEY_KP_SUBTRACT) or Input.is_key_pressed(KEY_MINUS):
 		MOVE_SPEED = clamp(MOVE_SPEED - .5, 5, 9999)
 	return input_dir
+	
 
 
+# not my code
 func _input(p_event: InputEvent) -> void:
 	if p_event is InputEventMouseButton and p_event.pressed:
 		if p_event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -92,33 +109,41 @@ func _input(p_event: InputEvent) -> void:
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
+	# if the player puntched the start start the corce
 	if area.has_meta("Start") and not course_started:
 		start_time = Time.get_ticks_msec()
 		course_started = true
 		next_control = 1
 		label.text = "Go"
-		current_controal.text = "current controal: " + str(next_control)
+		current_control.text = "Next control: " + str(next_control)
 		animation.play("fade in out")
 
 	if area.has_meta("control") and course_started:
-		if area.control_number == next_control:
+		# check if the contral is the right one and tell the player
+		if area.control_number == next_control and next_control + 1 != Global.finsh_control:
 			next_control += 1
 			label.text = "Control " + str(area.control_number) + " collected!"
-			current_controal.text = "current controal: " + str(next_control)
+			current_control.text = "Next control: " + str(next_control)
 			animation.play("fade in out")
+		
+		# if the next control is the finsh tell the player
+		elif area.control_number == next_control and next_control + 1 == Global.finsh_control:
+			next_control += 1
+			label.text = "Control " + str(area.control_number) + " collected!"
+			current_control.text = "Next control: Finsh"
+			animation.play("fade in out")
+			
+		# if the control is wrong tell the player witch one is
 		else:
 			label.text = "Wrong control! Need control " + str(next_control)
 			animation.play("fade in out")
-
-	if area.has_meta("Finish"):
-		if area.control_number == next_control:
+		
+	# check if the player can finsh the corce and stops the timer if so
+	if area.has_meta("finsh") and course_started:
+		if Global.finsh_control == next_control:
+			label.text = "Finsh"
+			animation.play("fade in out")
 			course_started = false
-
-			var elapsed: float = float(Time.get_ticks_msec() - start_time) / 1000.0
-			var minutes: int = int(elapsed / 60.0)
-			var seconds: int = int(elapsed) % 60
-			var milliseconds: int = int(elapsed * 1000) % 1000
-			label.text = "Time taken: %02d:%02d:%03d" % [minutes, seconds, milliseconds]
 			start_time = 0
 		else:
 			label.text = "Wrong control! Need control " + str(next_control)

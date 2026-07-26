@@ -42,6 +42,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SimpleGrass="*uid://bfq0snth8sj3h"
+Global="*uid://bskpex462e6mm"
 
 [editor_plugins]
 
