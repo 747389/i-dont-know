@@ -51,7 +51,7 @@ _data = {
 &"fade in out": SubResource("Animation_sgnwv")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("label", "current_control", "time_label", "animation")]
+[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("label", "current_control", "time_label", "animation", "camera_arm", "body", "collision_body", "collision_ray", "camera_3d")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_max_angle = 0.43807763
@@ -60,6 +60,11 @@ label = NodePath("Label")
 current_control = NodePath("current control")
 time_label = NodePath("time")
 animation = NodePath("AnimationPlayer")
+camera_arm = NodePath("CameraManager/Arm")
+body = NodePath("Body")
+collision_body = NodePath("CollisionShapeBody")
+collision_ray = NodePath("CollisionShapeRay")
+camera_3d = NodePath("CameraManager/Arm/Camera3D")
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=1846369667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -123,6 +128,5 @@ anchor_right = 1.0008681
 anchor_bottom = 0.16666667
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 2
-metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
