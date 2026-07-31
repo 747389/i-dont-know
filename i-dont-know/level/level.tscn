@@ -2,6 +2,7 @@
 
 [ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://demo/data/assets.tres" id="1_7lnir"]
 [ext_resource type="PackedScene" uid="uid://domhm87hbhbg1" path="res://demo/components/Player.tscn" id="2_5gx2l"]
+[ext_resource type="PackedScene" uid="uid://bb2lp50sjndus" path="res://demo/components/Environment.tscn" id="3_qohg2"]
 
 [sub_resource type="Gradient" id="Gradient_rd3vj"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -50,21 +51,19 @@ _shader_parameters = {
 &"noise2_scale": 0.076,
 &"noise_texture": SubResource("NoiseTexture2D_w7c3h"),
 &"projection_threshold": 0.86999998055376,
-&"tri_scale_reduction": 0.3
+&"tri_scale_reduction": 0.3,
+&"world_noise_fragment_normals": false,
+&"world_noise_height": 70.000001043084,
+&"world_noise_lod_distance": 5000.0,
+&"world_noise_max_octaves": 5,
+&"world_noise_min_octaves": 2,
+&"world_noise_offset": Vector3(0, 0, 0),
+&"world_noise_region_blend": 0.2799999956041,
+&"world_noise_scale": 4.499999905004
 }
+world_background = 2
 auto_shader = true
 dual_scaling = true
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5gx2l"]
-sky_top_color = Color(0.553545, 0.62458587, 0.7194901, 1)
-ground_bottom_color = Color(0.34633717, 0.2982074, 0.24411917, 1)
-
-[sub_resource type="Sky" id="Sky_qohg2"]
-sky_material = SubResource("ProceduralSkyMaterial_5gx2l")
-
-[sub_resource type="Environment" id="Environment_vkbyq"]
-background_mode = 2
-sky = SubResource("Sky_qohg2")
 
 [node name="level" type="Node3D" unique_id=1729792116]
 
@@ -79,5 +78,4 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." unique_id=1549111864 instance=ExtResource("2_5gx2l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.38104, 31.32019, 396.79126)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1844569797]
-environment = SubResource("Environment_vkbyq")
+[node name="Environment" parent="." unique_id=230090492 instance=ExtResource("3_qohg2")]
