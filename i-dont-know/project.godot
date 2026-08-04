@@ -44,6 +44,11 @@ config/icon="res://icon.svg"
 SimpleGrass="*uid://bfq0snth8sj3h"
 Global="*uid://bskpex462e6mm"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/simplegrasstextured/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")

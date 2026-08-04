@@ -188,7 +188,10 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			animation.play(FADE)
 		
 		# if the next control is the finsh tell the player
-		elif area.control_number == next_control and next_control + CTRL_STEP == Global.finsh_control:
+		elif (
+			area.control_number == next_control and 
+			next_control + CTRL_STEP == Global.finsh_control
+		):
 			next_control += CTRL_STEP
 			label.text = CONTROL + str(area.control_number) + COLLECTED
 			current_control.text = NEXT_CTRL_FINISH
