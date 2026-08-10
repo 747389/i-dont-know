@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 const EMPTY: String = ""
-const TIME_FMT: String = "Time : %02d:%02d:%03d"
+const FINSH_TIME: String = "Time : %02d:%02d:%03d"
 const META_START: String = "Start"
 const META_CONTROL: String = "control"
 const META_FINISH: String = "finsh"
@@ -35,9 +35,11 @@ const CTRL_START: int = 1
 const CTRL_STEP: int = 1
 
 
-var start_time: int = TIME_ZERO
+var start_time: int = 0
 var course_started: bool = false
-var next_control: int = CTRL_START
+var next_control: int = 0
+
+# Not my code
 var _first_person: bool = false
 var _gravity_enabled: bool = true
 var _collision_enabled: bool = true
@@ -47,6 +49,8 @@ var _collision_enabled: bool = true
 @export var current_control: Label
 @export var time_label: Label
 @export var animation: AnimationPlayer
+
+# Not my code
 @export var camera_arm: SpringArm3D
 @export var body: MeshInstance3D
 @export var collision_body: CollisionShape3D
@@ -109,7 +113,7 @@ func _physics_process(p_delta) -> void:
 		var minutes: int = int(elapsed / SEC_PER_MIN)
 		var seconds: int = int(elapsed) % int(SEC_PER_MIN)
 		var milliseconds: int = int(elapsed * MS_PER_SEC) % int(MS_PER_SEC)
-		time_label.text = TIME_FMT % [minutes, seconds, milliseconds]
+		time_label.text = FINSH_TIME % [minutes, seconds, milliseconds]
 		
 	# not my code
 	var direction: Vector3 = get_camera_relative_input()
@@ -135,7 +139,7 @@ func get_camera_relative_input() -> Vector3:
 		input_dir -= camera_3d.global_transform.basis.z
 	if Input.is_key_pressed(KEY_S): # Backward
 		input_dir += camera_3d.global_transform.basis.z
-	if Input.is_key_pressed(KEY_E) or Input.is_key_pressed(KEY_SPACE): # Up
+	if Input.is_key_pressed(KEY_SPACE):
 		velocity.y += JUMP_SPEED + MOVE_SPEED * JUMP_SCALE
 	if Input.is_key_pressed(KEY_Q): # Down
 		velocity.y -= JUMP_SPEED + MOVE_SPEED * JUMP_SCALE
@@ -147,7 +151,7 @@ func get_camera_relative_input() -> Vector3:
 	
 
 
-# not my code
+# Not my code
 func _input(p_event: InputEvent) -> void:
 	if p_event is InputEventMouseButton and p_event.pressed:
 		if p_event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -170,7 +174,7 @@ func _input(p_event: InputEvent) -> void:
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	# if the player puntched the start start the corce
+	# If the player puntched the start start the corce
 	if area.has_meta(META_START) and not course_started:
 		start_time = Time.get_ticks_msec()
 		course_started = true
@@ -179,15 +183,15 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		current_control.text = NEXT_CTRL + str(next_control)
 		animation.play(FADE)
 
-	if area.has_meta(META_CONTROL) and course_started:
-		# check if the contral is the right one and tell the player
+	elif area.has_meta(META_CONTROL) and course_started:
+		# Check if the contral is the right one and tell the player
 		if area.control_number == next_control and next_control + CTRL_STEP != Global.finsh_control:
 			next_control += CTRL_STEP
 			label.text = CONTROL + str(area.control_number) + COLLECTED
 			current_control.text = NEXT_CTRL + str(next_control)
 			animation.play(FADE)
 		
-		# if the next control is the finsh tell the player
+		# If the next control is the finsh tell the player
 		elif (
 			area.control_number == next_control and 
 			next_control + CTRL_STEP == Global.finsh_control
@@ -202,8 +206,8 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			label.text = WRONG_CONTROL + str(next_control)
 			animation.play(FADE)
 		
-	# check if the player can finsh the corce and stops the timer if so
-	if area.has_meta(META_FINISH) and course_started:
+	# Check if the player can finsh the corce and stops the timer if so
+	elif area.has_meta(META_FINISH) and course_started:
 		if Global.finsh_control == next_control:
 			label.text = FINISH
 			animation.play(FADE)

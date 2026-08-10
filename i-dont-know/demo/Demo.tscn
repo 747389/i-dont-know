@@ -108,11 +108,7 @@ particle_count = 22500
 
 [node name="Player" parent="." unique_id=261780715 instance=ExtResource("3_ht63y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 804.1913, 113.40619, -94.806946)
-MOVE_SPEED = null
-JUMP_SPEED = null
 first_person = true
-gravity_enabled = null
-collision_enabled = null
 
 [node name="Start" parent="." unique_id=2117980702 instance=ExtResource("9_egbwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 789.15125, 98.130165, -111.20603)

@@ -66,12 +66,12 @@ lod0_range = 128.0
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_ce8yv")])
 
 [node name="Importer" type="Terrain3D" unique_id=1965767072]
+data_directory = "res://level/level_data"
 material = SubResource("Terrain3DMaterial_34j6c")
 assets = SubResource("Terrain3DAssets_42p8u")
 mesh_lods = 8
 show_checkered = true
 top_level = true
 script = ExtResource("1_60b8f")
-height_file_name = "C:/Users/jackm/Documents/GitHub/i dont know/i-dont-know/heightmap.exr"
-file_name_out = "res://heightmap.exr"
+file_name_out = "res://level_height2.exr"
 metadata/_edit_lock_ = true
