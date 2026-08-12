@@ -3,6 +3,9 @@
 [ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://demo/data/assets.tres" id="1_7lnir"]
 [ext_resource type="PackedScene" uid="uid://domhm87hbhbg1" path="res://demo/components/Player.tscn" id="2_5gx2l"]
 [ext_resource type="PackedScene" uid="uid://bb2lp50sjndus" path="res://demo/components/Environment.tscn" id="3_qohg2"]
+[ext_resource type="PackedScene" uid="uid://dolr0pk3yb8ai" path="res://scenes/start.tscn" id="4_44x8d"]
+[ext_resource type="PackedScene" uid="uid://tomvv4ne1xnp" path="res://scenes/control.tscn" id="5_ivpvi"]
+[ext_resource type="PackedScene" uid="uid://dqdbtt6tljxf6" path="res://scenes/finish.tscn" id="6_0v1st"]
 
 [sub_resource type="Gradient" id="Gradient_rd3vj"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -79,3 +82,25 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.38104, 31.32019, 396.79126)
 
 [node name="Environment" parent="." unique_id=230090492 instance=ExtResource("3_qohg2")]
+
+[node name="Start" parent="." unique_id=2117980702 instance=ExtResource("4_44x8d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 485.6308, 7.491636, 419.45422)
+
+[node name="Control" parent="." unique_id=1820481607 instance=ExtResource("5_ivpvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.87605, -7.4088693, 375.48697)
+control_number = 1
+
+[node name="Control2" parent="." unique_id=790424029 instance=ExtResource("5_ivpvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -131.31567, -3.5949674, 416.7476)
+control_number = 2
+
+[node name="Control3" parent="." unique_id=866672374 instance=ExtResource("5_ivpvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -136.1799, 3.5281653, 80.916695)
+control_number = 3
+
+[node name="Control4" parent="." unique_id=1112612638 instance=ExtResource("5_ivpvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.67728, -5.294179, 90.20877)
+control_number = 4
+
+[node name="finish" parent="." unique_id=246749417 instance=ExtResource("6_0v1st")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 463.55, 6.605788, 455.82022)

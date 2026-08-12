@@ -1,3 +1,3 @@
 extends Node
 
-var finsh_control: int = 4
+var finsh_control: int = 5

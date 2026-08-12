@@ -4,4 +4,4 @@ extends Area3D
 
 
 func _ready() -> void:
-	Global.finsh_control = control_number
+	control_number = Global.finsh_control
