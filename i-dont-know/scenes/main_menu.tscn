@@ -2,34 +2,51 @@
 
 [ext_resource type="Script" uid="uid://8ohdydagl1jj" path="res://scenes/main_menu.gd" id="1_l6cm7"]
 
-[node name="Main_menu" type="Node2D" unique_id=749404810]
+[node name="Main_menu" type="CanvasLayer" unique_id=1681769138]
 script = ExtResource("1_l6cm7")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1813238251]
+[node name="Control" type="Control" parent="." unique_id=1850815536]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1813238251]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1868296127]
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1921281471]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1868296127]
 layout_direction = 2
-offset_right = 1281.0
-offset_bottom = 721.0
+layout_mode = 2
 theme_override_constants/separation = 500
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2027454376]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=2027454376]
 layout_mode = 2
 theme_override_constants/separation = 300
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1271305671]
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1271305671]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
 text = "level 1"
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=775316354]
+[node name="Button2" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=775316354]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
 text = "level 2"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
