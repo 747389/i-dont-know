@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+
+const Q := "Q"
+const SAVE_PATH := "user://save_score.data"
 const EMPTY: String = ""
 const FINSH_TIME: String = "Time : %02d:%02d:%03d"
 const META_START: String = "Start"
@@ -38,6 +41,10 @@ const CTRL_STEP: int = 1
 var start_time: int = 0
 var course_started: bool = false
 var next_control: int = 0
+var scores := []
+var minutes: int = 0
+var seconds: int = 0
+var milliseconds: int = 0
 
 # Not my code
 var _first_person: bool = false
@@ -45,10 +52,12 @@ var _gravity_enabled: bool = true
 var _collision_enabled: bool = true
 
 
+@export var map_view: CanvasLayer
 @export var label: Label
 @export var current_control: Label
 @export var time_label: Label
 @export var animation: AnimationPlayer
+@export var scores_lable: Label
 
 # Not my code
 @export var camera_arm: SpringArm3D
@@ -85,8 +94,12 @@ var _collision_enabled: bool = true
 
 
 func _ready() -> void:
-	# reset the next control text
+	load_scores()
+	
+	# Reset the next control text
 	current_control.text = EMPTY
+	
+	# Not my code 
 	_update_first_person()
 	_update_collision()
 
@@ -110,11 +123,15 @@ func _physics_process(p_delta) -> void:
 	# tell the player what there crreunt time is
 	if course_started:
 		var elapsed: float = float(Time.get_ticks_msec() - start_time) / MS_PER_SEC
-		var minutes: int = int(elapsed / SEC_PER_MIN)
-		var seconds: int = int(elapsed) % int(SEC_PER_MIN)
-		var milliseconds: int = int(elapsed * MS_PER_SEC) % int(MS_PER_SEC)
+		minutes = int(elapsed / SEC_PER_MIN)
+		seconds = int(elapsed) % int(SEC_PER_MIN)
+		milliseconds = int(elapsed * MS_PER_SEC) % int(MS_PER_SEC)
 		time_label.text = FINSH_TIME % [minutes, seconds, milliseconds]
-		
+	
+	var toggle = map_view.visible
+	if Input.is_action_just_pressed(Q):
+		map_view.visible = not toggle
+	
 	# not my code
 	var direction: Vector3 = get_camera_relative_input()
 	var h_veloc: Vector2 = Vector2(direction.x, direction.z).normalized() * MOVE_SPEED
@@ -212,7 +229,21 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			label.text = FINISH
 			animation.play(FADE)
 			course_started = false
+			scores.append([minutes, seconds, milliseconds])
+			save_score()
 			start_time = TIME_ZERO
 		else:
 			label.text = WRONG_CONTROL + str(next_control)
 			animation.play(FADE)
+
+
+func save_score():
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	file.store_var(scores)
+
+
+func load_scores():
+	if FileAccess.file_exists(SAVE_PATH):
+		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+		scores = file.get_var()
+		print(scores)

@@ -99,7 +99,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -136.1799, 3.5281653, 80.9166
 control_number = 3
 
 [node name="Control4" parent="." unique_id=1112612638 instance=ExtResource("5_ivpvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.67728, -5.294179, 90.20877)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.66978, 9.818324, 84.09833)
 control_number = 4
 
 [node name="finish" parent="." unique_id=246749417 instance=ExtResource("6_0v1st")]
