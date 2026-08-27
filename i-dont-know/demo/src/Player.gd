@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const Q := "Q"
+const INPUT_OPEN_MAP := "Q"
 const SAVE_PATH := "user://save_score.data"
 const EMPTY: String = ""
 const FINSH_TIME: String = "Time : %02d:%02d:%03d"
@@ -31,11 +31,10 @@ const SPEED_MAX: float = 9999.0
 const JUMP_SCALE: float = 0.016
 const SPEED_DEFAULT: float = 50.0
 const JUMP_DEFAULT: float = 2.0
-const TIME_ZERO: int = 0
-const ZERO: float = 0.0
 const JUMP_RELEASE_KEYS: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 const CTRL_START: int = 1
 const CTRL_STEP: int = 1
+const MAX_SCORES: int = 5
 
 
 var start_time: int = 0
@@ -67,6 +66,7 @@ var _collision_enabled: bool = true
 @export var camera_3d: Camera3D
 @export var MOVE_SPEED: float = SPEED_DEFAULT
 @export var JUMP_SPEED: float = JUMP_DEFAULT
+
 # not my code
 @export var first_person: bool = false :
 	set(p_value):
@@ -80,7 +80,7 @@ var _collision_enabled: bool = true
 	set(p_value):
 		_gravity_enabled = p_value
 		if not _gravity_enabled:
-			velocity.y = ZERO
+			velocity.y = 0.0
 	get:
 		return _gravity_enabled
 			
@@ -95,6 +95,13 @@ var _collision_enabled: bool = true
 
 func _ready() -> void:
 	load_scores()
+	
+	# Sorts the scores
+	scores.sort_custom(sort_scores)
+	
+	# Make shore that there are only the top 5 scores
+	while len(scores) > MAX_SCORES:
+		scores.pop_back()
 	
 	# Reset the next control text
 	current_control.text = EMPTY
@@ -129,7 +136,7 @@ func _physics_process(p_delta) -> void:
 		time_label.text = FINSH_TIME % [minutes, seconds, milliseconds]
 	
 	var toggle = map_view.visible
-	if Input.is_action_just_pressed(Q):
+	if Input.is_action_just_pressed(INPUT_OPEN_MAP):
 		map_view.visible = not toggle
 	
 	# not my code
@@ -187,7 +194,7 @@ func _input(p_event: InputEvent) -> void:
 
 		# Else if up/down released
 		elif p_event.keycode in JUMP_RELEASE_KEYS:
-			velocity.y = ZERO
+			velocity.y = 0.0
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
@@ -210,7 +217,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		
 		# If the next control is the finsh tell the player
 		elif (
-			area.control_number == next_control and 
+			area.control_number == next_control and
 			next_control + CTRL_STEP == Global.finsh_control
 		):
 			next_control += CTRL_STEP
@@ -231,7 +238,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			course_started = false
 			scores.append([minutes, seconds, milliseconds])
 			save_score()
-			start_time = TIME_ZERO
+			start_time = 0
 		else:
 			label.text = WRONG_CONTROL + str(next_control)
 			animation.play(FADE)
@@ -246,4 +253,19 @@ func load_scores():
 	if FileAccess.file_exists(SAVE_PATH):
 		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 		scores = file.get_var()
-		print(scores)
+
+
+# Sorts the scores using sort_custom()
+func sort_scores(score_1, score_2):
+	if score_1[0] < score_2[0]:
+		return true
+		
+	elif score_1[0] == score_2[0]:
+		if score_1[1] < score_2[1]:
+			return true
+			
+		elif score_1[1] == score_2[1]:
+			if score_1[2] < score_2[2]:
+				return true
+	return false
+		
