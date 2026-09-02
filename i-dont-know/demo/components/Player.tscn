@@ -52,7 +52,7 @@ _data = {
 &"fade in out": SubResource("Animation_sgnwv")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "message_label", "control_label", "timer_label", "animation_player", "scores_label", "camera_arm", "body_mesh", "body_collision_shape", "ray_collision_shape", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "message_label", "control_label", "timer_label", "animation_player", "scores_label", "ray_cast", "camera_arm", "body_mesh", "body_collision_shape", "ray_collision_shape", "camera")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_max_angle = 0.43807763
@@ -63,6 +63,7 @@ control_label = NodePath("current control")
 timer_label = NodePath("time")
 animation_player = NodePath("AnimationPlayer")
 scores_label = NodePath("scores")
+ray_cast = NodePath("RayCast3D")
 camera_arm = NodePath("CameraManager/Arm")
 body_mesh = NodePath("Body")
 body_collision_shape = NodePath("CollisionShapeBody")
@@ -102,6 +103,11 @@ mesh = SubResource("CapsuleMesh_lsqiy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=674244025]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_mox7b")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=498614742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, -2, 0)
+collide_with_areas = true
 
 [node name="Label" type="Label" parent="." unique_id=1670526007]
 modulate = Color(1, 1, 1, 0)

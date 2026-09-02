@@ -46,6 +46,8 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 @export var timer_label: Label
 @export var animation_player: AnimationPlayer
 @export var scores_label: Label
+@export var ray_cast: RayCast3D
+
 
 # Not my code
 @export var camera_arm: SpringArm3D
@@ -90,6 +92,7 @@ var scores: Array = []
 var minutes: int = 0
 var seconds: int = 0
 var milliseconds: int = 0
+var is_jumping: bool = false
 
 # Not my code
 var _first_person: bool = false
@@ -129,6 +132,13 @@ func _physics_process(p_delta: float) -> void:
 		)
 		if timer_label:
 			timer_label.text = TIME_FORMAT % [minutes, seconds, milliseconds]
+	
+	# If the player is not jumpring stop them form jumpping down slopes
+	if is_on_floor():
+		is_jumping = false
+	
+	if not is_jumping and ray_cast.is_colliding():
+		global_position.y = ray_cast.get_collision_point().y
 	
 	# Open the map when Q is pressed
 	if map_view and Input.is_action_just_pressed(OPEN_MAP_ACTION):
@@ -330,6 +340,7 @@ func get_camera_relative_input() -> Vector3:
 	if Input.is_key_pressed(KEY_S): # Backward
 		input_direction += camera.global_transform.basis.z
 	if Input.is_key_pressed(KEY_SPACE):
+		is_jumping = true
 		velocity.y += jump_speed + move_speed * JUMP_SPEED_SCALE
 	if Input.is_key_pressed(KEY_Q): # Down
 		velocity.y -= jump_speed + move_speed * JUMP_SPEED_SCALE
