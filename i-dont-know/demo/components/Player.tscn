@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://domhm87hbhbg1"]
 
-[ext_resource type="Script" uid="uid://dajlr3n5wjwmb" path="res://demo/src/Player.gd" id="1_nm1yx"]
+[ext_resource type="Script" uid="uid://djolodrm1vm4c" path="res://demo/src/player.gd" id="1_sgnwv"]
 [ext_resource type="Script" uid="uid://b62ppvc03a6b1" path="res://demo/src/CameraManager.gd" id="2_loos7"]
 [ext_resource type="Texture2D" uid="uid://bgnsrxk3o4lh0" path="res://Screenshot 2026-08-21 131026.png" id="3_sgnwv"]
 
@@ -52,22 +52,22 @@ _data = {
 &"fade in out": SubResource("Animation_sgnwv")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "label", "current_control", "time_label", "animation", "scores_lable", "camera_arm", "body", "collision_body", "collision_ray", "camera_3d")]
+[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "message_label", "control_label", "timer_label", "animation_player", "scores_label", "camera_arm", "body_mesh", "body_collision_shape", "ray_collision_shape", "camera")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_max_angle = 0.43807763
-script = ExtResource("1_nm1yx")
+script = ExtResource("1_sgnwv")
 map_view = NodePath("CanvasLayer")
-label = NodePath("Label")
-current_control = NodePath("current control")
-time_label = NodePath("time")
-animation = NodePath("AnimationPlayer")
-scores_lable = NodePath("scores")
+message_label = NodePath("Label")
+control_label = NodePath("current control")
+timer_label = NodePath("time")
+animation_player = NodePath("AnimationPlayer")
+scores_label = NodePath("scores")
 camera_arm = NodePath("CameraManager/Arm")
-body = NodePath("Body")
-collision_body = NodePath("CollisionShapeBody")
-collision_ray = NodePath("CollisionShapeRay")
-camera_3d = NodePath("CameraManager/Arm/Camera3D")
+body_mesh = NodePath("Body")
+body_collision_shape = NodePath("CollisionShapeBody")
+ray_collision_shape = NodePath("CollisionShapeRay")
+camera = NodePath("CameraManager/Arm/Camera3D")
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=1846369667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4021573, 0)

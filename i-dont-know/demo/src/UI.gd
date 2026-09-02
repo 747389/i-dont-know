@@ -1,7 +1,7 @@
 extends Control
 
 
-var player: Node
+var player: Node3D
 var visible_mode: int = 1
 
 
@@ -9,11 +9,12 @@ func _init() -> void:
 	RenderingServer.set_debug_generate_wireframes(true)
 
 
-func _process(_p_delta) -> void:
+func _process(_p_delta: float) -> void:
 	$Label.text = "FPS: %d\n" % Engine.get_frames_per_second()
-	if(visible_mode == 1):
-		$Label.text += "Move Speed: %.1f\n" % player.MOVE_SPEED if player else ""
-		$Label.text += "Position: %.1v\n" % player.global_position if player else ""
+	if visible_mode == 1:
+		if is_instance_valid(player):
+			$Label.text += "Move Speed: %.1f\n" % player.get("move_speed")
+			$Label.text += "Position: %.1v\n" % player.global_position
 		$Label.text += """
 			Player
 			Move: WASDEQ,Space,Mouse

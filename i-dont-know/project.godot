@@ -35,7 +35,7 @@ Shortcuts/density_decrement=Object(Shortcut,"resource_local_to_scene":false,"res
 [application]
 
 config/name="i dont know"
-run/main_scene="uid://chol2xlfbq7cu"
+run/main_scene="uid://dxpguv4wrfwlu"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
