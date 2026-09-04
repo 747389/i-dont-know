@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dxpguv4wrfwlu"]
 
 [ext_resource type="Script" uid="uid://8ohdydagl1jj" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://bfx372eu30lfn" path="res://contour_map-updated.png" id="2_ekxnf"]
 
 [node name="Main_menu" type="CanvasLayer" unique_id=1681769138]
 script = ExtResource("1_l6cm7")
@@ -14,11 +15,12 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1813238251]
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=895709991]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(0, 0, 0, 1)
+texture = ExtResource("2_ekxnf")
+expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1921281471]
 layout_mode = 1

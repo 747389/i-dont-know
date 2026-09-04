@@ -249,8 +249,8 @@ func _load_scores() -> void:
 		for score_entry in loaded_scores:
 			if _is_valid_score(score_entry):
 				scores.append(score_entry)
-				
-				
+
+
 # Validates one score entry
 func _is_valid_score(score: Variant) -> bool:
 	if not (score is Array) or score.size() != SCORE_COMPONENT_COUNT:
