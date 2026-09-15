@@ -15,6 +15,7 @@ const CONTROL_MESSAGE_PREFIX: String = "Control "
 const COLLECTED_MESSAGE_SUFFIX: String = " collected!"
 const WRONG_CONTROL_MESSAGE: String = "Wrong control! Need control "
 const FINISH_MESSAGE: String = "Finish"
+const SCORES_MESSEAGE: String = "Top Scores: "
 const FADE_ANIMATION: String = "fade in out"
 const SECONDS_PER_MINUTE: float = 60.0
 const MILLISECONDS_PER_SECOND: float = 1000.0
@@ -33,10 +34,10 @@ const GRAVITY_ACCELERATION: float = 40.0
 const SPEED_INCREMENT: float = 0.5
 const WHEEL_SPEED_STEP: float = 5.0
 const MIN_SPEED: float = 5.0
-const MAX_SPEED: float = 9999.0
+const MAX_SPEED: float = 500000.0
 const JUMP_SPEED_SCALE: float = 0.016
-const DEFAULT_SPEED: float = 50.0
-const DEFAULT_JUMP_SPEED: float = 2.0
+const DEFAULT_SPEED: float = 5.0
+const DEFAULT_JUMP_SPEED: float = 10.0
 const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 
 
@@ -58,31 +59,6 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 @export var move_speed: float = DEFAULT_SPEED
 @export var jump_speed: float = DEFAULT_JUMP_SPEED
 
-# Not my code
-@export var first_person: bool = false:
-	set(p_value):
-		_first_person = p_value
-		if is_inside_tree():
-			_update_first_person()
-	get:
-		return _first_person
-		
-@export var gravity_enabled: bool = true:
-	set(p_value):
-		_gravity_enabled = p_value
-		if not _gravity_enabled:
-			velocity.y = 0.0
-	get:
-		return _gravity_enabled
-		
-@export var collision_enabled: bool = true:
-	set(p_value):
-		_collision_enabled = p_value
-		if is_inside_tree():
-			_update_collision()
-	get:
-		return _collision_enabled
-		
 
 
 var start_time_msec: int = 0
@@ -95,8 +71,7 @@ var milliseconds: int = 0
 var is_jumping: bool = false
 
 # Not my code
-var _first_person: bool = false
-var _gravity_enabled: bool = true
+var _first_person: bool = true
 var _collision_enabled: bool = true
 
 
@@ -203,38 +178,45 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			course_started = false
 			scores.append([minutes, seconds, milliseconds])
 			_save_score()
+			_scores_message(SCORES_MESSEAGE + str(scores)) 
 			start_time_msec = 0
 		else:
 			_set_message(WRONG_CONTROL_MESSAGE + str(next_control_number))
 			_play_fade()
 
 
-# Updates the main message label
+# Update the scores lable
+func _scores_message(message: String) -> void:
+	if scores_label:
+		scores_label.text = message
+
+
+# Updat the main message label
 func _set_message(message: String) -> void:
 	if message_label:
 		message_label.text = message
 
 
-# Starts the message fade animation
+# Starts the fade animation
 func _play_fade() -> void:
 	if animation_player:
 		animation_player.play(FADE_ANIMATION)
 
 
-# Updates the next-control label
+# Updat the next control label
 func _update_control_label(message: String) -> void:
 	if control_label:
 		control_label.text = message
 
 
-# Saves course times
+# Save scores
 func _save_score() -> void:
 	var score_file = FileAccess.open(SCORE_SAVE_PATH, FileAccess.WRITE)
 	if score_file:
 		score_file.store_var(scores)
 
 
-# Loads valid course times
+# Loads valid scores
 func _load_scores() -> void:
 	scores.clear()
 	if FileAccess.file_exists(SCORE_SAVE_PATH):
@@ -251,7 +233,7 @@ func _load_scores() -> void:
 				scores.append(score_entry)
 
 
-# Validates one score entry
+# Validates score entry
 func _is_valid_score(score: Variant) -> bool:
 	if not (score is Array) or score.size() != SCORE_COMPONENT_COUNT:
 		return false
@@ -318,7 +300,7 @@ func _move_player(p_delta: float) -> void:
 		horizontal_velocity *= SHIFT_SPEED_MULTIPLIER
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.y
-	if gravity_enabled:
+	if not is_on_floor():
 		velocity.y -= GRAVITY_ACCELERATION * p_delta
 	move_and_slide()
 
@@ -339,7 +321,7 @@ func get_camera_relative_input() -> Vector3:
 		input_direction -= camera.global_transform.basis.z
 	if Input.is_key_pressed(KEY_S): # Backward
 		input_direction += camera.global_transform.basis.z
-	if Input.is_key_pressed(KEY_SPACE):
+	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
 		is_jumping = true
 		velocity.y += jump_speed + move_speed * JUMP_SPEED_SCALE
 	if Input.is_key_pressed(KEY_Q): # Down
@@ -358,15 +340,6 @@ func _input(p_event: InputEvent) -> void:
 			move_speed = clamp(move_speed + WHEEL_SPEED_STEP, MIN_SPEED, MAX_SPEED)
 		elif p_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			move_speed = clamp(move_speed - WHEEL_SPEED_STEP, MIN_SPEED, MAX_SPEED)
-			
-	elif p_event is InputEventKey:
-		if p_event.pressed:
-			if p_event.keycode == KEY_V:
-				first_person = not first_person
-			elif p_event.keycode == KEY_G:
-				gravity_enabled = not gravity_enabled
-			elif p_event.keycode == KEY_C:
-				collision_enabled = not collision_enabled
 				
 		# Else if up/down released
 		elif p_event.keycode in JUMP_RELEASE_KEYCODES:
