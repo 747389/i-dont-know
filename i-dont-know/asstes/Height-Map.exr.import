@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2iy6uita4mxo"
-path="res://.godot/imported/level_height2.exr-e0c1915c3a3b4c4fca2d6203fdf63281.ctex"
+uid="uid://bii5t87wfemyw"
+path="res://.godot/imported/Height-Map.exr-055b6e1e1fdbf45067fa0f847499f7aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level_height2.exr"
-dest_files=["res://.godot/imported/level_height2.exr-e0c1915c3a3b4c4fca2d6203fdf63281.ctex"]
+source_file="res://asstes/Height-Map.exr"
+dest_files=["res://.godot/imported/Height-Map.exr-055b6e1e1fdbf45067fa0f847499f7aa.ctex"]
 
 [params]
 

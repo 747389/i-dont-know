@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfx372eu30lfn"
-path="res://.godot/imported/contour_map-updated.png-761955e718d242a38fb1c6c30a6c00af.ctex"
+uid="uid://b7wowm6kyxvlt"
+path="res://.godot/imported/level_height.exr-8bab3a27541dbc605680327822a207bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://contour_map-updated.png"
-dest_files=["res://.godot/imported/contour_map-updated.png-761955e718d242a38fb1c6c30a6c00af.ctex"]
+source_file="res://asstes/level_height.exr"
+dest_files=["res://.godot/imported/level_height.exr-8bab3a27541dbc605680327822a207bb.ctex"]
 
 [params]
 

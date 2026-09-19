@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwvhnu5jg4h42"
-path="res://.godot/imported/Rock030_1K-PNG_Color.png-11984bd1d9125c4602843bfd7af44109.ctex"
+uid="uid://d2iy6uita4mxo"
+path="res://.godot/imported/level_height2.exr-41c2034a7537833ccf085a12a675607e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rock030_1K-PNG_Color.png"
-dest_files=["res://.godot/imported/Rock030_1K-PNG_Color.png-11984bd1d9125c4602843bfd7af44109.ctex"]
+source_file="res://asstes/level_height2.exr"
+dest_files=["res://.godot/imported/level_height2.exr-41c2034a7537833ccf085a12a675607e.ctex"]
 
 [params]
 

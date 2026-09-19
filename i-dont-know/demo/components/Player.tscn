@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djolodrm1vm4c" path="res://demo/src/player.gd" id="1_sgnwv"]
 [ext_resource type="Script" uid="uid://b62ppvc03a6b1" path="res://demo/src/CameraManager.gd" id="2_loos7"]
-[ext_resource type="Texture2D" uid="uid://bgnsrxk3o4lh0" path="res://Screenshot 2026-08-21 131026.png" id="3_sgnwv"]
+[ext_resource type="Texture2D" uid="uid://bgnsrxk3o4lh0" path="res://asstes/Screenshot 2026-08-21 131026.png" id="3_sgnwv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 

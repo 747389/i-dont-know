@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cd2cmpwmmaepa"
-path.bptc="res://.godot/imported/heightmap.exr-78311f30cfe6af0c7ad28390539e884a.bptc.ctex"
+path.bptc="res://.godot/imported/heightmap.exr-6424a9d6a1769c1aa0a7061ca422c355.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://heightmap.exr"
-dest_files=["res://.godot/imported/heightmap.exr-78311f30cfe6af0c7ad28390539e884a.bptc.ctex"]
+source_file="res://asstes/heightmap.exr"
+dest_files=["res://.godot/imported/heightmap.exr-6424a9d6a1769c1aa0a7061ca422c355.bptc.ctex"]
 
 [params]
 

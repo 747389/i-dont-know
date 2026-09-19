@@ -62,13 +62,13 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 
 
 var start_time_msec: int = 0
-var course_started: bool = false
 var next_control_number: int = 0
 var scores: Array = []
 var minutes: int = 0
 var seconds: int = 0
 var milliseconds: int = 0
 var is_jumping: bool = false
+var score_text: String = ""
 
 # Not my code
 var _first_person: bool = true
@@ -96,7 +96,7 @@ func _ready() -> void:
 
 func _physics_process(p_delta: float) -> void:
 	# tell the player what there crreunt time is
-	if course_started:
+	if Global.course_started:
 		var elapsed_seconds: float = (
 			float(Time.get_ticks_msec() - start_time_msec) / MILLISECONDS_PER_SECOND
 		)
@@ -116,7 +116,7 @@ func _physics_process(p_delta: float) -> void:
 		global_position.y = ray_cast.get_collision_point().y
 	
 	# Open the map when Q is pressed
-	if map_view and Input.is_action_just_pressed(OPEN_MAP_ACTION):
+	if map_view and Input.is_action_just_pressed(OPEN_MAP_ACTION) and Global.course_started:
 		map_view.visible = not map_view.visible
 		
 	# Not my code
@@ -128,15 +128,15 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		return
 		
 	# If the player puntched the start start the corce
-	if area.has_meta(START_META) and not course_started:
+	if area.has_meta(START_META) and not Global.course_started:
 		start_time_msec = Time.get_ticks_msec()
-		course_started = true
+		Global.course_started = true
 		next_control_number = FIRST_CONTROL_NUMBER
 		_set_message(START_MESSAGE)
 		_update_control_label(NEXT_CONTROL_MESSAGE + str(next_control_number))
 		_play_fade()
 		
-	elif area.has_meta(CONTROL_META) and course_started:
+	elif area.has_meta(CONTROL_META) and Global.course_started:
 		var entered_control_number: Variant = area.control_number
 		if not (entered_control_number is int):
 			return
@@ -171,14 +171,19 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			_play_fade()
 			
 	# Check if the player can finsh the corce and stops the timer if so
-	elif area.has_meta(FINISH_META) and course_started:
+	elif area.has_meta(FINISH_META) and Global.course_started:
 		if Global.finsh_control == next_control_number:
 			_set_message(FINISH_MESSAGE)
 			_play_fade()
-			course_started = false
+			Global.course_started = false
 			scores.append([minutes, seconds, milliseconds])
 			_save_score()
-			_scores_message(SCORES_MESSEAGE + str(scores)) 
+			
+			# Display the scores to the player
+			for score in scores:
+				score_text += "\n%02d:%02d:%03d" % [score[0], score[1], score[2]]
+			_scores_message(SCORES_MESSEAGE + str(score_text)) 
+			
 			start_time_msec = 0
 		else:
 			_set_message(WRONG_CONTROL_MESSAGE + str(next_control_number))
