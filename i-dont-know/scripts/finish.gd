@@ -1,6 +1,6 @@
 extends Area3D
 
-
+# the number at witch the finsh can be punched
 @export var control_number: int = 0
 
 

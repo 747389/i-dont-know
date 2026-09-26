@@ -52,7 +52,7 @@ _data = {
 &"fade in out": SubResource("Animation_sgnwv")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "message_label", "control_label", "timer_label", "animation_player", "scores_label", "ray_cast", "camera_arm", "body_mesh", "body_collision_shape", "ray_collision_shape", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=1549111864 node_paths=PackedStringArray("map_view", "message_label", "control_label", "timer_label", "animation_player", "scores_label", "ray_cast", "controls_label", "camera_arm", "body_mesh", "body_collision_shape", "ray_collision_shape", "camera")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_max_angle = 0.43807763
@@ -64,6 +64,7 @@ timer_label = NodePath("time")
 animation_player = NodePath("AnimationPlayer")
 scores_label = NodePath("scores")
 ray_cast = NodePath("RayCast3D")
+controls_label = NodePath("controals")
 camera_arm = NodePath("CameraManager/Arm")
 body_mesh = NodePath("Body")
 body_collision_shape = NodePath("CollisionShapeBody")
@@ -158,6 +159,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_sgnwv")
+metadata/_edit_use_anchors_ = true
+
+[node name="controals" type="Label" parent="." unique_id=208506433]
+anchors_preset = -1
+anchor_top = 0.6319444
+anchor_right = 0.29765624
+anchor_bottom = 1.0027778
+offset_top = 3.0517578e-05
+theme_override_font_sizes/font_size = 30
+text = "Controals (Press C to hide)
+Move: WASD
+Jump: space
+Sprint: Shift
+Open map: Q
+"
 metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-
+const HIDE_CONTROALS_LABEL := "C"
 const OPEN_MAP_ACTION := "Q"
 const SCORE_SAVE_PATH := "user://save_score.data"
 const EMPTY_TEXT: String = ""
@@ -34,7 +34,7 @@ const GRAVITY_ACCELERATION: float = 40.0
 const SPEED_INCREMENT: float = 0.5
 const WHEEL_SPEED_STEP: float = 5.0
 const MIN_SPEED: float = 5.0
-const MAX_SPEED: float = 500000.0
+const MAX_SPEED: float = 5.0
 const JUMP_SPEED_SCALE: float = 0.016
 const DEFAULT_SPEED: float = 5.0
 const DEFAULT_JUMP_SPEED: float = 10.0
@@ -48,7 +48,7 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 @export var animation_player: AnimationPlayer
 @export var scores_label: Label
 @export var ray_cast: RayCast3D
-
+@export var controls_label: Label
 
 # Not my code
 @export var camera_arm: SpringArm3D
@@ -58,7 +58,6 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 @export var camera: Camera3D
 @export var move_speed: float = DEFAULT_SPEED
 @export var jump_speed: float = DEFAULT_JUMP_SPEED
-
 
 
 var start_time_msec: int = 0
@@ -118,6 +117,13 @@ func _physics_process(p_delta: float) -> void:
 	# Open the map when Q is pressed
 	if map_view and Input.is_action_just_pressed(OPEN_MAP_ACTION) and Global.course_started:
 		map_view.visible = not map_view.visible
+	
+	# Hide controlas display
+	if Input.is_action_just_pressed(HIDE_CONTROALS_LABEL):
+		if controls_label.visible:
+			controls_label.visible = false
+		else:
+			controls_label.visible = true
 		
 	# Not my code
 	_move_player(p_delta)
@@ -165,7 +171,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			_update_control_label(FINISH_CONTROL_MESSAGE)
 			_play_fade()
 			
-		# if the control is wrong tell the player witch one is
+		# If the control is wrong tell the player witch one is
 		else:
 			_set_message(WRONG_CONTROL_MESSAGE + str(next_control_number))
 			_play_fade()
@@ -182,7 +188,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			# Display the scores to the player
 			for score in scores:
 				score_text += "\n%02d:%02d:%03d" % [score[0], score[1], score[2]]
-			_scores_message(SCORES_MESSEAGE + str(score_text)) 
+			_update_scores_lable(SCORES_MESSEAGE + str(score_text)) 
 			
 			start_time_msec = 0
 		else:
@@ -191,7 +197,7 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 
 
 # Update the scores lable
-func _scores_message(message: String) -> void:
+func _update_scores_lable(message: String) -> void:
 	if scores_label:
 		scores_label.text = message
 
@@ -208,13 +214,13 @@ func _play_fade() -> void:
 		animation_player.play(FADE_ANIMATION)
 
 
-# Updat the next control label
+# Update the next control label
 func _update_control_label(message: String) -> void:
 	if control_label:
 		control_label.text = message
 
 
-# Save scores
+# Save the scores
 func _save_score() -> void:
 	var score_file = FileAccess.open(SCORE_SAVE_PATH, FileAccess.WRITE)
 	if score_file:
@@ -234,12 +240,12 @@ func _load_scores() -> void:
 			return
 			
 		for score_entry in loaded_scores:
-			if _is_valid_score(score_entry):
+			if _validate_scores(score_entry):
 				scores.append(score_entry)
 
 
-# Validates score entry
-func _is_valid_score(score: Variant) -> bool:
+# Validates scores
+func _validate_scores(score: Variant) -> bool:
 	if not (score is Array) or score.size() != SCORE_COMPONENT_COUNT:
 		return false
 		
@@ -252,7 +258,7 @@ func _is_valid_score(score: Variant) -> bool:
 
 # Sorts the scores using sort_custom()
 func _sort_scores(first_score, second_score) -> bool:
-	if not _is_valid_score(first_score) or not _is_valid_score(second_score):
+	if not _validate_scores(first_score) or not _validate_scores(second_score):
 		return false
 		
 	if first_score[0] < second_score[0]:
@@ -329,8 +335,6 @@ func get_camera_relative_input() -> Vector3:
 	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
 		is_jumping = true
 		velocity.y += jump_speed + move_speed * JUMP_SPEED_SCALE
-	if Input.is_key_pressed(KEY_Q): # Down
-		velocity.y -= jump_speed + move_speed * JUMP_SPEED_SCALE
 	if Input.is_key_pressed(KEY_KP_ADD) or Input.is_key_pressed(KEY_EQUAL):
 		move_speed = clamp(move_speed + SPEED_INCREMENT, MIN_SPEED, MAX_SPEED)
 	if Input.is_key_pressed(KEY_KP_SUBTRACT) or Input.is_key_pressed(KEY_MINUS):

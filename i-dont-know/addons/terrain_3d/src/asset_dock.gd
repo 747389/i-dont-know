@@ -620,7 +620,7 @@ class ListContainer extends Container:
 	func _get_minimum_size() -> Vector2:
 		return Vector2(0, height)
 
-		
+
 	func _notification(p_what) -> void:
 		if p_what == NOTIFICATION_SORT_CHILDREN:
 			redraw()

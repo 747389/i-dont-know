@@ -1,5 +1,4 @@
 extends Area3D
 
-
-# The number at witch the controal can be colleted
+# The number at witch the controal can be punched
 @export var control_number: int = 0
