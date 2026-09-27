@@ -5,7 +5,7 @@ var terrain: Terrain3D
 
 func _ready() -> void:
 	$UI.player = $Player
-		
+	
 	if has_node("RunThisSceneLabel3D"):
 		$RunThisSceneLabel3D.queue_free()
 

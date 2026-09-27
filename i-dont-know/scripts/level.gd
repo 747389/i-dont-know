@@ -2,6 +2,7 @@ extends Node3D
 
 const START_COLLTION_LAYER: int = 0
 
+
 @export var start_area: StaticBody3D
 
 

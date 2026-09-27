@@ -33,12 +33,9 @@ const SHIFT_SPEED_MULTIPLIER: float = 2.0
 const GRAVITY_ACCELERATION: float = 40.0
 const SPEED_INCREMENT: float = 0.5
 const WHEEL_SPEED_STEP: float = 5.0
-const MIN_SPEED: float = 5.0
-const MAX_SPEED: float = 5.0
+const SPEED: float = 5.0
 const JUMP_SPEED_SCALE: float = 0.016
-const DEFAULT_SPEED: float = 5.0
 const DEFAULT_JUMP_SPEED: float = 10.0
-const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 
 
 @export var map_view: CanvasLayer
@@ -56,7 +53,7 @@ const JUMP_RELEASE_KEYCODES: Array[int] = [KEY_Q, KEY_E, KEY_SPACE]
 @export var body_collision_shape: CollisionShape3D
 @export var ray_collision_shape: CollisionShape3D
 @export var camera: Camera3D
-@export var move_speed: float = DEFAULT_SPEED
+@export var move_speed: float = SPEED
 @export var jump_speed: float = DEFAULT_JUMP_SPEED
 
 
@@ -106,25 +103,25 @@ func _physics_process(p_delta: float) -> void:
 		)
 		if timer_label:
 			timer_label.text = TIME_FORMAT % [minutes, seconds, milliseconds]
-	
+			
 	# If the player is not jumpring stop them form jumpping down slopes
 	if is_on_floor():
 		is_jumping = false
-	
+		
 	if not is_jumping and ray_cast.is_colliding():
 		global_position.y = ray_cast.get_collision_point().y
-	
+		
 	# Open the map when Q is pressed
 	if map_view and Input.is_action_just_pressed(OPEN_MAP_ACTION) and Global.course_started:
 		map_view.visible = not map_view.visible
-	
+		
 	# Hide controlas display
 	if Input.is_action_just_pressed(HIDE_CONTROALS_LABEL):
 		if controls_label.visible:
 			controls_label.visible = false
 		else:
 			controls_label.visible = true
-		
+			
 	# Not my code
 	_move_player(p_delta)
 
@@ -220,7 +217,7 @@ func _update_control_label(message: String) -> void:
 		control_label.text = message
 
 
-# Save the scores
+# Save the scores to an exsternal file
 func _save_score() -> void:
 	var score_file = FileAccess.open(SCORE_SAVE_PATH, FileAccess.WRITE)
 	if score_file:
@@ -336,9 +333,9 @@ func get_camera_relative_input() -> Vector3:
 		is_jumping = true
 		velocity.y += jump_speed + move_speed * JUMP_SPEED_SCALE
 	if Input.is_key_pressed(KEY_KP_ADD) or Input.is_key_pressed(KEY_EQUAL):
-		move_speed = clamp(move_speed + SPEED_INCREMENT, MIN_SPEED, MAX_SPEED)
+		move_speed = clamp(move_speed + SPEED_INCREMENT, SPEED, SPEED)
 	if Input.is_key_pressed(KEY_KP_SUBTRACT) or Input.is_key_pressed(KEY_MINUS):
-		move_speed = clamp(move_speed - SPEED_INCREMENT, MIN_SPEED, MAX_SPEED)
+		move_speed = clamp(move_speed - SPEED_INCREMENT, SPEED, SPEED)
 	return input_direction
 
 
@@ -346,10 +343,6 @@ func get_camera_relative_input() -> Vector3:
 func _input(p_event: InputEvent) -> void:
 	if p_event is InputEventMouseButton and p_event.pressed:
 		if p_event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			move_speed = clamp(move_speed + WHEEL_SPEED_STEP, MIN_SPEED, MAX_SPEED)
+			move_speed = clamp(move_speed + WHEEL_SPEED_STEP, SPEED, SPEED)
 		elif p_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			move_speed = clamp(move_speed - WHEEL_SPEED_STEP, MIN_SPEED, MAX_SPEED)
-				
-		# Else if up/down released
-		elif p_event.keycode in JUMP_RELEASE_KEYCODES:
-			velocity.y = 0.0
+			move_speed = clamp(move_speed - WHEEL_SPEED_STEP, SPEED, SPEED)

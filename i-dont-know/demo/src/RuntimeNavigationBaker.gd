@@ -92,19 +92,19 @@ func _update_map_cell_size() -> void:
 func _process(p_delta: float) -> void:
 	if _bake_task_id != -1:
 		_bake_task_timer += p_delta
-	
+		
 	if not player or _bake_task_id != -1:
 		return
-	
+		
 	if _bake_cooldown_timer > 0.0:
 		_bake_cooldown_timer -= p_delta
 		return
-	
+		
 	var track_pos := player.global_position
 	if player is CharacterBody3D:
 		# Center on where the player is likely _going to be_:
 		track_pos += player.velocity * bake_cooldown
-	
+		
 	if track_pos.distance_squared_to(_current_center) >= min_rebake_distance * min_rebake_distance:
 		_current_center = track_pos
 		_rebake(_current_center)
@@ -129,7 +129,7 @@ func _task_bake(p_center: Vector3) -> void:
 		aabb.position += nav_mesh.filter_baking_aabb_offset
 		var faces: PackedVector3Array = terrain.generate_nav_mesh_source_geometry(aabb, false)
 		source_geometry.add_faces(faces, Transform3D.IDENTITY)
-	
+		
 	if source_geometry.has_data():
 		NavigationServer3D.bake_from_source_geometry_data(nav_mesh, source_geometry)
 		_bake_finished.call_deferred(nav_mesh)
@@ -140,12 +140,12 @@ func _task_bake(p_center: Vector3) -> void:
 func _bake_finished(p_nav_mesh: NavigationMesh) -> void:
 	if log_timing:
 		print("Navigation bake took ", _bake_task_timer, "s")
-	
+		
 	_bake_task_timer = 0.0
 	_bake_task_id = -1
 	
 	if p_nav_mesh:
 		_nav_region.navigation_mesh = p_nav_mesh
-	
+		
 	bake_finished.emit()
 	assert(!NavigationServer3D.region_get_use_edge_connections(_nav_region.get_region_rid()))

@@ -37,7 +37,7 @@ func _physics_process(p_delta: float) -> void:
 		var velocity_xz := (next_path_position - current_agent_position).normalized() * MOVE_SPEED
 		velocity.x = velocity_xz.x
 		velocity.z = velocity_xz.z
-	
+		
 	velocity.y -= 40 * p_delta
 	
 	if nav_agent.avoidance_enabled:
